@@ -1,0 +1,36 @@
+h1 {
+    font-size: 2em;
+    color: var(--brand-first-color);
+    font-weight: 700;
+    margin: 3px;
+    padding: 0;
+}
+
+h2 {
+    font-size: 1.6em;
+    color: var(--brand-first-color);
+    font-weight: 700;
+    margin: 3px;
+    padding: 0;
+}
+
+h3 {
+    margin: 3px;
+    padding: 0;
+    font-size: 1.3em;
+    color: var(--brand-first-color);
+}
+
+h4 {
+    margin: 3px;
+    color: var(--brand-first-color);
+    padding: 0;
+    font-size: 1.1em;
+}   
+
+h5 {
+    margin: 3px;
+    color: var(--brand-first-color);
+    padding: 0;
+}   
+

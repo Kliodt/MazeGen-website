@@ -1,0 +1,49 @@
+/* Базовые стили для radio buttons */
+
+/* Скрываем стандартный radio button */
+input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: 6px 0;
+    border: 2px solid var(--radio-button-color);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+input[type="radio"]:hover {
+    border-color: var(--brand-first-color);
+}
+
+input[type="radio"]:focus {
+    border-color: var(--brand-first-color);
+}
+
+input[type="radio"]:checked {
+    border-color: var(--brand-first-color);
+    background-color: var(--brand-first-color);
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--brand-second-color);
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+

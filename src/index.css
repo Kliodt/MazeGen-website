@@ -1,13 +1,42 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    background-color: var(--background-color-dark);
+    background: url('/public/images/bg/maze-bg2.png');
+    background-attachment: scroll;
+    
+    
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+:root {
+    /* two main colors */
+    --brand-first-color: rgb(0, 155, 255);
+    --brand-first-color-dark: rgb(0, 130, 215);
+    --brand-first-color-darker: rgb(0, 110, 185);
+
+    --brand-second-color: rgb(255, 255, 255);
+    --brand-second-color-dark: rgb(215, 215, 215);
+    --brand-second-color-darker: rgb(185, 185, 185);
+
+    /* backgrounds for elements on different levels */
+    --background-color: rgb(255, 255, 255);
+    --background-color-dark: rgb(245, 245, 245);
+    --background-color-darker: rgb(230, 230, 230);
+
+
+    /* sliders color */
+    --sliders-bg-color: rgba(0, 0, 0, 0.15);
+    --sliders-bg-color-darker: rgba(0,0,0,0.2);
+
+    /* text inputs */
+    --text-input-hover: rgba(0, 0, 0, 0);
+    --text-input-hover-color: rgba(0, 0, 0, 0.1);
+
+    /* radio buttons */
+    --radio-button-color: rgba(0,0,0,0.2);
+
 }

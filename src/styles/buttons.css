@@ -1,0 +1,27 @@
+button {
+    user-select: none;
+}
+
+
+.common-button {
+    color: var(--brand-second-color);
+    background-color: var(--brand-first-color);
+    font-size: 1.2em;
+    padding: 0.4em 0.5em;
+    border-width: 0;
+    font-weight: 600;
+    border-radius: 0.5em;
+    box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);
+}
+
+.common-button:hover {
+    color: var(--brand-second-color-dark);
+    background-color: var(--brand-first-color-dark);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.common-button:active {
+    color: var(--brand-second-color-darker);
+    background-color: var(--brand-first-color-darker);
+}
