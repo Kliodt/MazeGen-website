@@ -1,7 +1,7 @@
-/* Базовые стили для radio buttons */
+/* Базовые стили для radio buttons
 
 /* Скрываем стандартный radio button */
-input[type="radio"] {
+/* input[type="radio"] {
     appearance: none;
     width: 18px;
     height: 18px;
@@ -43,7 +43,7 @@ input[type="radio"]:checked::before {
     display: flex;
     align-items: center;
     gap: 8px;
-}
+} */
 
 
 

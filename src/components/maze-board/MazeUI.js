@@ -1,8 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MazeLayout from "./MazeLayout";
 import { Directions } from "../../model/directions";
-import { MazeUtils } from "../../model/maze";
-import styles from './maze.module.css'
+import { MazeUtils } from "./utils";
+import { Button, Col, Flex, Popover, Row, Skeleton, Space, Spin } from "antd";
+import { ArrowDownOutlined, ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined, DownloadOutlined, InfoCircleOutlined, LoadingOutlined, RedoOutlined, UndoOutlined, ZoomInOutlined, ZoomOutOutlined } from '@ant-design/icons';
+
 
 
 
@@ -13,51 +15,25 @@ import styles from './maze.module.css'
  * @param {Function} setMaze maze setter
  * @param {Boolean} blocked if true, all interactions with the maze are blocked
  */
-const MazeUI = ({maze, setMaze, blocked=false, overlays}) => {
+const MazeUI = ({maze, path, placeholder}) => {
 
-    const [scale, setScale] = useState(1);
+    // MazeUI is responsible for modifying the maze/path
+    // MazeLayout is responsible only for showing the maze
+
     
-    if (!maze.undoList) maze.undoList = [];
-    if (!maze.redoList) maze.redoList = [];
 
-    // const [path, setPath] = useState(initialPath || []);
-    // const [isLoading, setLoading] = useState(false);
+    const [undoList, setUndoList] = useState([]);
+    const [redoList, setRedoList] = useState([]);
 
-    // const mazeLayout = maze ? (
-    //     <MazeLayout maze={maze} mazePath={[]}/>
-    // ) : (
-    //     <div style={{filter: "blur(6px)"}}>
-    //         <MazeLayout maze={getDefaultMaze()} mazePath={[]}/>
-    //     </div>
-    // );
-
-    // // todo: check path completed
-    // let overlay = null;
-    // if (maze) {
-
-    // } else {
-    //     const onGenerate = () => {
-    //         setLoading(true);
-    //         requestNewMazeGen();
-    //     }
-    //     if (isLoading) {
-    //         overlay = <div className="maze-overlay">
-    //             <div style={{textAlign: 'center', userSelect: 'none'}}>
-    //                 <span className="common-big-text"><h2>Генерация</h2></span><br/>
-    //                 <img src="images/icons/loadingCircle.gif" alt="" style={{height: '1.5em'}}/>
-    //             </div>
-    //         </div>
-    //     } else {
-    //         // overlay = <div className="maze-overlay">
-    //         //     <button onClick={onGenerate} className="common-button">Генерировать</button>
-    //         // </div>
-    //     }
-    // }
-
+    // clear undo-redo lists when the new maze is coming
+    useEffect(() => {
+        setUndoList([]);
+        setRedoList([]);
+    }, [maze]);
 
 
     const extendPath = (direction) => {
-        if (blocked) return;
+        // if (blocked) return;
 
         const last = maze.path[maze.path.length - 1];
         const next = {...last};
@@ -77,49 +53,75 @@ const MazeUI = ({maze, setMaze, blocked=false, overlays}) => {
         }
         newPath.push(next);
 
-        createUndoObject(maze);
-        setMaze({...maze, path: newPath});
+        // createUndoObject();
+        // setMaze({...maze, path: newPath});
     }
 
-    const createUndoObject = (maze) => {
-        maze.undoList.push(maze);
-        maze.redoList = [];
-    }
+    // const createUndoObject = () => {
+    //     maze.undoList.push(maze);
+    //     maze.redoList.length = 0;
+    // }
 
-    const undoLastAction = () => {
-        if (maze.undoList.length) {
-            setMaze(maze.undoList.pop());
-            maze.redoList.push(maze);
-        }
-    }
+    // const undoLastAction = () => {
+    //     if (maze.undoList.length) {
+    //         // setMaze(maze.undoList.pop());
+    //         maze.redoList.push(maze);
+            
+    //     }
+    // }
 
-    const redoLastAction = () => {
-        if (maze.redoList.length) {
-            setMaze(maze.redoList.pop());
-            maze.undoList.push(maze);
-        }
-    }
+    // const redoLastAction = () => {
+    //     if (maze.redoList.length) {
+    //         // setMaze(maze.redoList.pop());
+    //         maze.undoList.push(maze);
+    //     }
+    // }
 
-    const uiElements = <div>
-        <button disabled={blocked} onClick={() => {extendPath(Directions.TOP)}}>top</button>
-        <button disabled={blocked} onClick={() => {extendPath(Directions.BOTTOM)}}>bottom</button>
-        <button disabled={blocked} onClick={() => {extendPath(Directions.RIGHT)}}>right</button>
-        <button disabled={blocked} onClick={() => {extendPath(Directions.LEFT)}}>left</button>
-        <button disabled={blocked} onClick={undoLastAction}>undo</button>
-        <button disabled={blocked} onClick={redoLastAction}>redo</button>
-        <button disabled={blocked} onClick={() => setScale(s => s + 0.1)}>+</button>
-        <button disabled={blocked} onClick={() => setScale(s => s - 0.1)}>-</button>
-    </div>
+
+    const mazeExtraInfo = <div>
+        {/* <p>Создатель: {maze?.author?.nickname ? maze.author.nickname : 'N/A'} </p> */}
+        <p>Создан: {maze?.genDate ? new Date(Date.parse(maze.genDate)).toLocaleString() : 'N/A'}</p>
+        <p>Алгоритм: {maze?.algorithm ? `"${maze.algorithm}"` : 'N/A'}</p>
+        <p>Время генерации: {maze?.genDurationMs !== undefined ? maze.genDurationMs + 'ms': 'N/A'}</p>
+    </div>;
 
     
 
     return (
-        <>
-            <div className={styles['maze-base']}>
-                <MazeLayout maze={maze}/>
-            </div>
-            {uiElements}    
-        </>
+        <Flex vertical gap={16}>
+
+            <Row gutter={[16,0]} align='center' justify='center'>
+                <Col flex='90px'>
+                    <Flex vertical gap={8} align="flex-start">
+                        <Button size="small" icon={<UndoOutlined />} style={{width: '100%'}} >Undo</Button>
+                        <Button size="small" icon={<RedoOutlined />} style={{width: '100%'}} >Redo</Button>
+                    </Flex>
+                </Col>
+                
+                <Col flex='90px'>
+                    <Flex gap={8} wrap>
+                        <Button icon={<DownloadOutlined />} onClick={() => alert('todo')} />
+                        <Popover content={mazeExtraInfo} title="Информация" trigger="click">
+                            <Button icon={<InfoCircleOutlined />} />
+                        </Popover>
+                    </Flex>
+                    
+                </Col>
+            </Row>
+
+            <Flex justify="center">
+                <MazeLayout maze={maze} path={path} canvasMaxWidth={500} canvasMaxHeight={500} />
+            </Flex>
+
+            <Flex justify="center">
+                <Space>
+                    <Button icon={<ArrowLeftOutlined />} />
+                    <Button icon={<ArrowUpOutlined />} />
+                    <Button icon={<ArrowDownOutlined />} />
+                    <Button icon={<ArrowRightOutlined />} />
+                </Space>
+            </Flex>
+        </Flex>
     )
 }
 

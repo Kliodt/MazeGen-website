@@ -1,38 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/121ae53562.js" crossorigin="anonymous"></script>
-    <style>
-        
-        .rel {
-          position: relative;
-          background-color: red;
-          width: 100px;
-          height: 50px;
-        }
-
-        .abs {
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-color: aqua;
-          width: 100%;
-          height: 100%;
-          opacity: 0.5;
-        }
-    </style>
+  <title>Sidebar inside growing flexbox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
+<style>
+
+  /* Вспомогательные штуки */
+  body {
+    margin: 0;
+  }
+  h1 {
+    margin: 0;
+  }
+
+  /* Основная логика */
+  #flexbox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    height: 90px;
+    position: sticky;
+    top: 0; /* это нужно чтобы работало 'position: sticky' */
+    width: 100%;
+    background-color: palevioletred;
+  }
+
+
+  aside {
+    position: fixed;
+    height: calc(100% - 90px); /* учитываем header */
+    width: 200px;
+    overflow-y: auto;
+    background-color: darkcyan;
+  }
+
+  #main {
+    margin-left: 200px;
+    overflow-y: auto;
+    background-color: darkorange;
+  }
+
+</style>
+
+
 <body>
+
+  <div id="flexbox">
+
+    <!-- HEADER -->
+    <header>
+      <h1>Sidebar внутри flexbox растущего вниз</h1>
+    </header>
+
+    <!-- Все остальное кроме HEADER -->
+    <div id="body">
+      <aside id="sider">
+        <!-- SIDER -->
+      </aside>
   
+      <div id="main">
+        <!-- MAIN CONTENT -->
+      </div>
+    </div>
 
-    <form>
-
-      <input type="range" value="40" oninput="alert(123)"/>
-    </form>
-
-   
+  </div>
+  
 </body>
+
+
+<script>
+  // Логика кнопок для демонстрации
+  document.getElementsByTagName('header')[0].innerHTML += `
+    <div style="position: absolute; top: 50px; right: 60px">
+      Demo:
+      <button id="btn-0" onclick="btnClicked(0)"></button>
+      <button id="btn-1" onclick="btnClicked(1)"></button>
+    </div>
+  `;
+  var bigDiv = '<div style="height: 1000px;">I am a big div</div>'
+  var smallDiv = '<div style="height: 100px;">I am a small div</div>'
+  var state = [false, false];
+
+  function btnClicked(btn) {
+    var button = document.getElementById('btn-' + btn);
+    var el = document.getElementById(btn == 1 ? "main" : "sider");
+    state[btn] = !state[btn];
+    if (state[btn]) {
+      el.innerHTML = bigDiv;
+      button.innerText = 'Большой div ' + btn;
+    } else {
+      el.innerHTML = smallDiv;
+      button.innerText = 'Маленький div ' + btn;
+    }
+  }
+  btnClicked(0);
+  btnClicked(1);
+
+
+</script>
 </html>

@@ -1,44 +1,26 @@
-.common-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
+
+
+.better-slider.p-slider {
     height: 10px;
-    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.better-slider.p-slider:hover {
+    opacity: 0.8;
+}
+
+.better-slider.p-slider .p-slider-range {
+    cursor: pointer;
     border-radius: 5px;
-    background: var(--sliders-bg-color);
-    outline: none;
-    transition: .2s;
 }
 
-.common-slider:hover {
-    background: var(--sliders-bg-color-darker);
-}
-
-.common-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; 
-    background: var(--brand-first-color);
-    transition: .2s;
+.better-slider.p-slider .p-slider-handle {
     cursor: pointer;
 }
 
-.common-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; 
-    background: var(--brand-first-color);
-    transition: .2s;
-    cursor: pointer;
+.better-slider.p-slider .p-slider-handle:hover {
+    background-color: white;
+    
 }
-
-.common-slider::-webkit-slider-thumb:hover {
-    background: var(--brand-first-color-dark);
-}
-
-.common-slider::-moz-range-thumb:hover {
-    background: var(--brand-first-color-dark);
-}
-

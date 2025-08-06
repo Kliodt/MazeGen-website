@@ -1,23 +1,7 @@
-input[type='text'] {
-    border-width: 0 0 1px 0;
-    border-color: var(--brand-first-color);
-    transition: .2s;
-    padding: 2px 5px;
-    background-color: rgba(0,0,0,0);
-}
 
-input[type='text']:hover {
-    background-color: var(--text-input-hover-color);
-}
-
-input[type='text']:focus {
-    border: 0 0 0 2px;
-    outline: none;
-    background-color: var(--text-input-color);
-
-}
-
-
-input[type='text']:active {
-    background-color: var(--text-input-color);
+.small-input.p-inputtext,
+.small-input .p-inputtext {
+    padding: 5px;
+    margin: 2px;
+    max-width: 80px;
 }
