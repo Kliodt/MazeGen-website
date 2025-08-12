@@ -1,37 +1,140 @@
-import { Card, Flex } from "antd";
-import { useRef } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import { Api } from "../api/api";
-import MazeLayout from "../components/maze-board/MazeLayout";
+import { Badge, Button, Card, Flex, message, Space } from 'antd';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Api } from '../api/api';
+import MazeLayoutPlaceholder from '../components/maze-board/MazeLayoutPlaceholder';
+import SolveMaze from '../components/maze-board/SolveMaze';
+import { MazeUtils } from '../components/maze-board/utils';
 
-const SimpleMazePage = () => {
-
+const MazePage = () => {
     const params = useParams();
-    const location = useLocation();
 
-    console.log(params);
-    console.log(location);
+    const [maze, setMaze] = useState(null);
+    const [mazePath, setMazePath] = useState(null);
 
-    const mazeRef = useRef(null);
+    const [isMazeLoading, setMazeLoading] = useState(true);
+    const [isSaveLoading, setSaveLoading] = useState(false);
+    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-    if (location?.state?.maze) {
-        mazeRef.current = location.state.maze;
-    } else if (params.mazeId) {
-        // todo: get maze from server
-    }
+    const [messageApi, contextHolder] = message.useMessage();
 
-    if (mazeRef.current == null) {
-        return "not found"; // todo
+    // load the maze
+    useEffect(() => {
+        if (!params.mazeId) return;
+        Api.getMazeById(params.mazeId)
+            .then(maze => {
+                if (!maze) {
+                    setMaze(null);
+                } else {
+                    setMaze(maze);
+                    setMazePath(maze?.userPath?.points || [[maze.startX, maze.startY]]);
+                }
+            })
+            .catch(() => {
+                setMaze(null);
+            })
+            .finally(() => {
+                setMazeLoading(false);
+            });
+    }, [params.mazeId]);
+
+    const onMazePathChanged = newPath => {
+        setMazePath(newPath);
+        setHasUnsavedChanges(true);
+
+        // check completed
+        if (maze && MazeUtils.isCompleted(maze.finishX, maze.finishY, newPath)) {
+            Api.submitMazeCompletion(maze.id, newPath)
+                .then(resp => {
+                    if (resp.isMazeCompleted) {
+                        messageApi.open({
+                            type: 'success',
+                            content: 'Лабиринт пройден',
+                            className: 'add-header-padding'
+                        });
+                    }
+                    setHasUnsavedChanges(false);
+                })
+                .catch(err => console.log('submit completion error, ', err));
+        }
+    };
+
+    const onSaveButton = () => {
+        if (isSaveLoading) return;
+
+        setHasUnsavedChanges(false);
+        setSaveLoading(true);
+
+        Api.savePath(maze.id, mazePath)
+            .then(res => {
+                if (res) {
+                    messageApi.open({
+                        type: 'success',
+                        content: 'Изменения сохранены',
+                        className: 'add-header-padding'
+                    });
+                } else {
+                    messageApi.open({
+                        type: 'error',
+                        content: 'Ошибка сохранения',
+                        className: 'add-header-padding'
+                    });
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => setSaveLoading(false));
+    };
+
+    let content = null;
+
+    if (isMazeLoading) {
+        content = (
+            <MazeLayoutPlaceholder
+                canvasMaxHeight={500}
+                canvasMaxWidth={500}
+                widthToHeightRatio={1}
+                active
+            />
+        );
+    } else {
+        if (maze) {
+            content = (
+                <>
+                    <div style={{ marginBottom: 8 }}>
+                        <Badge dot={hasUnsavedChanges} size='default' offset={[-1, 1]} style={{scale: 1.3}}>
+                            <Button
+                                loading={isSaveLoading}
+                                onClick={onSaveButton}
+                                type={hasUnsavedChanges ? 'primary' : 'default'}
+                            >
+                                Сохранить
+                            </Button>
+                        </Badge>
+                    </div>
+                    <SolveMaze maze={maze} path={mazePath} setPath={onMazePathChanged} />
+                </>
+            );
+        } else {
+            content = (
+                <MazeLayoutPlaceholder
+                    canvasMaxHeight={500}
+                    canvasMaxWidth={500}
+                    widthToHeightRatio={1}
+                >
+                    Ошибка: Не найден
+                </MazeLayoutPlaceholder>
+            );
+        }
     }
 
     return (
-        <Flex justify="center" style={{margin: 16}}>
-            <Card>
-                <MazeLayout maze={mazeRef.current} canvasMaxHeight={500} canvasMaxWidth={500}/>
-            </Card>
-
-        </Flex>
+        <>
+            {contextHolder}
+            <Flex justify='center' style={{ margin: 16 }}>
+                <Card>{content}</Card>
+            </Flex>
+        </>
     );
-}
+};
 
-export default SimpleMazePage;
+export default MazePage;

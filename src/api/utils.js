@@ -1,5 +1,4 @@
-import { Api } from "./api";
-
+import { Api } from './api';
 
 export const ApiUtils = {
     /**
@@ -11,7 +10,7 @@ export const ApiUtils = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                Accept: 'application/json'
             },
             body: JSON.stringify({
                 query: queryStr
@@ -20,7 +19,6 @@ export const ApiUtils = {
         return await response.json();
     },
 
-
     /**
      * Common method to make requests to the API
      * @param {String} path url without domain prefix (must start with '\')
@@ -28,7 +26,7 @@ export const ApiUtils = {
      * @param {boolean} authorized weather to add the 'Authorization' header with the access token
      * @returns {Promise<Response>}
      */
-    async apiFetch(path, requestInit, authorized=true) {
+    async apiFetch(path, requestInit, authorized = true) {
         const authHeaders = {};
 
         if (authorized) {
@@ -39,7 +37,7 @@ export const ApiUtils = {
             }
         }
 
-        return await fetch('http://localhost:8080' + path, {
+        return await fetch(path, {
             ...requestInit,
             headers: {
                 ...requestInit.headers,
@@ -49,33 +47,35 @@ export const ApiUtils = {
         });
     },
 
-
     /**
      * Simple GET request to api
      * @returns {Promise<Response>}
      */
-    async apiGet(path, body, headers, authorized=true) {
-        return await this.apiFetch(path, {
-            headers: {
-                ...headers,
-                method: 'GET'
+    async apiGet(path, body, headers, authorized = true) {
+        return await this.apiFetch(
+            path,
+            {
+                method: 'GET',
+                headers,
+                body
             },
-            body
-        }, authorized)
+            authorized
+        );
     },
-
 
     /**
      * Simple POST request to api
      * @returns {Promise<Response>}
-    */
-    async apiPost(path, body, headers, authorized=true) {
-        return await this.apiFetch(path, {
-            headers: {
-                ...headers,
-                method: 'POST'
+     */
+    async apiPost(path, body, headers, authorized = true) {
+        return await this.apiFetch(
+            path,
+            {
+                method: 'POST',
+                headers,
+                body
             },
-            body
-        }, authorized)
+            authorized
+        );
     }
-}
+};

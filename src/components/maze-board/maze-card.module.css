@@ -1,0 +1,44 @@
+.maze-card-green {
+    background-color: rgba(188, 255, 157, 1);
+    outline: 4px dashed rgba(104, 190, 63, 1);
+    outline-offset: -2px;
+}
+
+.maze-card-green .layout-wrapper,
+.maze-card .layout-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* default card */
+
+.maze-card .layout-wrapper:hover {
+    cursor: pointer;
+    border: 1px solid rgba(64, 150, 255, 1);
+    background-color: rgba(64, 150, 255, 0.05);
+}
+
+.maze-card .layout-wrapper:active {
+    cursor: pointer;
+    border: 1px solid rgba(rgba(9, 88, 217, 1));
+    background-color: rgba(rgba(9, 88, 217, 0.05));
+}
+
+/* green card */
+
+.maze-card-green .layout-wrapper:hover {
+    cursor: pointer;
+    border: 1px solid rgb(44, 189, 46);
+    background-color: rgba(44, 189, 46, 0.1);
+}
+
+.maze-card-green .layout-wrapper:active {
+    cursor: pointer;
+    border: 1px solid rgba(rgb(9, 217, 26));
+    background-color: rgba(rgba(9, 217, 26, 0.1));
+}

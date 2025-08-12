@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react"
-import { Maze, MazeFactory } from "../../model/maze";
+import { Button, Divider, InputNumber, Radio, Slider, Space } from "antd";
+import { useState } from "react";
 import { Api } from "../../api/api";
-import { Button, Col, Divider, Flex, InputNumber, Radio, Row, Slider, Space } from "antd";
 
 
 
@@ -85,8 +84,8 @@ const GeneratorSettings = ({genBeganCallback, genEndedCallback}) => {
                 }}
             />
             <Divider/>
-            <IntegerStep inputId='gen-form-width' label={'Ширина'} val={width} setVal={setWidth} minVal={3} maxVal={1000}/>
-            <IntegerStep inputId='gen-form-height' label={'Высота'} val={height} setVal={setHeight} minVal={3} maxVal={1000}/>
+            <IntegerStep inputId='gen-form-width' label={'Ширина'} val={width} setVal={setWidth} minVal={3} maxVal={100}/>
+            <IntegerStep inputId='gen-form-height' label={'Высота'} val={height} setVal={setHeight} minVal={3} maxVal={100}/>
             <Divider/>
             {
                 isGenerating ? (

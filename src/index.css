@@ -7,8 +7,6 @@ body {
     /* background-color: var(--background-color-dark); */
     background: url('/public/images/bg/maze-bg2.png');
     background-attachment: scroll;
-    
-    
 }
 
 .simple-shadow {
@@ -17,31 +15,16 @@ body {
 
 
 :root {
-    /* two main colors */
-    --brand-first-color: rgb(0, 155, 255);
-    --brand-first-color-dark: rgb(0, 130, 215);
-    --brand-first-color-darker: rgb(0, 110, 185);
-
-    --brand-second-color: rgb(255, 255, 255);
-    --brand-second-color-dark: rgb(215, 215, 215);
-    --brand-second-color-darker: rgb(185, 185, 185);
-
-    /* backgrounds for elements on different levels */
-    --background-color: rgb(255, 255, 255);
-    --background-color-dark: rgb(245, 245, 245);
-    --background-color-darker: rgb(230, 230, 230);
-
-
-    /* sliders color */
-    --sliders-bg-color: rgba(0, 0, 0, 0.15);
-    --sliders-bg-color-darker: rgba(0,0,0,0.2);
-
-    /* text inputs */
-    --text-input-hover: rgba(0, 0, 0, 0);
-    --text-input-hover-color: rgba(0, 0, 0, 0.1);
-
-    /* radio buttons */
-    --radio-button-color: rgba(0,0,0,0.2);
+    --header-height: 48px;
 
 }
 
+
+.add-header-padding {
+    padding-top: var(--header-height);
+}
+
+.header-sticky {
+    position: sticky;
+    top: var(--header-height)
+}
