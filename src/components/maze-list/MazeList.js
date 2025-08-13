@@ -1,7 +1,7 @@
+import { Button, Flex } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { Api } from '../../api/api';
 import MazeCard from '../maze-board/MazeCard';
-import { Button, Flex } from 'antd';
 
 const MazeList = ({ userId, pageSize = 10 }) => {
     const [state, setState] = useState({

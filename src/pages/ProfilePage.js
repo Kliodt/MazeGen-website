@@ -1,8 +1,7 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { Api } from '../api/api';
-import { Avatar, Button, Card, Flex } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-import MazeCard from '../components/maze-board/MazeCard';
+import { Avatar, Button, Card, Flex } from 'antd';
+import { useEffect, useState } from 'react';
+import { Api } from '../api/api';
 import MazeList from '../components/maze-list/MazeList';
 
 const formatDate = dateStr => {

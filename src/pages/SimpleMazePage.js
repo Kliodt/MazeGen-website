@@ -1,8 +1,8 @@
-import { Badge, Button, Card, Flex, message, Space } from 'antd';
+import { Badge, Button, Card, Flex, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Api } from '../api/api';
-import MazeLayoutPlaceholder from '../components/maze-board/MazeLayoutPlaceholder';
+import MazeLayoutSkeleton from '../components/maze-board/MazeLayoutSkeleton';
 import SolveMaze from '../components/maze-board/SolveMaze';
 import { MazeUtils } from '../components/maze-board/utils';
 
@@ -89,7 +89,7 @@ const MazePage = () => {
 
     if (isMazeLoading) {
         content = (
-            <MazeLayoutPlaceholder
+            <MazeLayoutSkeleton
                 canvasMaxHeight={500}
                 canvasMaxWidth={500}
                 widthToHeightRatio={1}
@@ -101,7 +101,12 @@ const MazePage = () => {
             content = (
                 <>
                     <div style={{ marginBottom: 8 }}>
-                        <Badge dot={hasUnsavedChanges} size='default' offset={[-1, 1]} style={{scale: 1.3}}>
+                        <Badge
+                            dot={hasUnsavedChanges}
+                            size='default'
+                            offset={[-1, 1]}
+                            style={{ scale: 1.3 }}
+                        >
                             <Button
                                 loading={isSaveLoading}
                                 onClick={onSaveButton}
@@ -116,13 +121,13 @@ const MazePage = () => {
             );
         } else {
             content = (
-                <MazeLayoutPlaceholder
+                <MazeLayoutSkeleton
                     canvasMaxHeight={500}
                     canvasMaxWidth={500}
                     widthToHeightRatio={1}
                 >
                     Ошибка: Не найден
-                </MazeLayoutPlaceholder>
+                </MazeLayoutSkeleton>
             );
         }
     }

@@ -1,10 +1,10 @@
-import { Card, Col, Flex, Row } from 'antd';
+import { Card, Col, Row } from 'antd';
+import Text from 'antd/es/typography/Text';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MazeLayout from './MazeLayout';
-import MazeLayoutPlaceholder from './MazeLayoutPlaceholder';
+import MazeLayoutSkeleton from './MazeLayoutSkeleton';
 import styles from './maze-card.module.css';
-import Text from 'antd/es/typography/Text';
 import { MazeUtils } from './utils';
 
 /**
@@ -18,7 +18,7 @@ const MazeCard = ({ maze, path, size = 200, isMazeCompleted }) => {
     if (!maze) {
         return (
             <Card>
-                <MazeLayoutPlaceholder
+                <MazeLayoutSkeleton
                     canvasMaxHeight={size}
                     canvasMaxWidth={size}
                     widthToHeightRatio={1}
@@ -28,7 +28,9 @@ const MazeCard = ({ maze, path, size = 200, isMazeCompleted }) => {
     }
 
     return (
-        <Card className={isMazeCompleted ? styles['maze-card-green'] : styles['maze-card']}>
+        <Card
+            className={isMazeCompleted ? styles['maze-card-green'] : styles['maze-card']}
+        >
             <div style={{ maxWidth: size + 24 }}>
                 <Row gutter={8}>
                     <Col span={20}>

@@ -13,9 +13,7 @@ const BasicLayoutOptions = ({
         <div>
             <p>ID: {id || 'N/A'}</p>
             <p>Автор: {author?.nickname || 'N/A'}</p>
-            <p>
-                Создан: {MazeUtils.formatMazeGenDateTime(genDate) || 'N/A'}
-            </p>
+            <p>Создан: {MazeUtils.formatMazeGenDateTime(genDate) || 'N/A'}</p>
             <p>Алгоритм: {algorithm || 'N/A'}</p>
             <p>
                 Время генерации:{' '}
@@ -43,9 +41,7 @@ const BasicLayoutOptions = ({
                     <Flex gap={8} justify='flex-end'>
                         <Button icon={<DownloadOutlined />} onClick={onDownloadClick} />
                     </Flex>
-                ) : (
-                    null
-                )}
+                ) : null}
             </Col>
         </Row>
     );

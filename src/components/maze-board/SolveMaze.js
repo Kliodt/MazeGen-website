@@ -1,10 +1,10 @@
 import { Flex, Switch } from 'antd';
 import { useEffect, useState } from 'react';
+import useSavedValue from '../../hooks/useSavedValue';
 import BasicLayoutOptions from './BasicLayoutOptions';
 import KeyboardWidget, { KeyboardWidgetAction } from './KeyboardWidget';
 import MazeLayout from './MazeLayout';
 import { Directions, MazeUtils } from './utils';
-import useSavedValue from '../../hooks/useSavedValue';
 
 /**
  * Component that is responsible for all interactions with the maze.
@@ -32,7 +32,7 @@ const SolveMaze = ({ maze, path, setPath }) => {
 
     const extendPath = direction => {
         const lastPoint = path[path.length - 1];
-        const newPoint = [ ...lastPoint ];
+        const newPoint = [...lastPoint];
         if (direction === Directions.TOP) newPoint[1]--;
         if (direction === Directions.BOTTOM) newPoint[1]++;
         if (direction === Directions.LEFT) newPoint[0]--;

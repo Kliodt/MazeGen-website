@@ -1,7 +1,7 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Skeleton, Spin } from 'antd';
 
-const MazeLayoutPlaceholder = ({
+const MazeLayoutSkeleton = ({
     canvasMaxWidth,
     canvasMaxHeight,
     widthToHeightRatio = 1,
@@ -30,4 +30,4 @@ const MazeLayoutPlaceholder = ({
     );
 };
 
-export default MazeLayoutPlaceholder;
+export default MazeLayoutSkeleton;

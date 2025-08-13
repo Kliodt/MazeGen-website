@@ -14,7 +14,7 @@ const useGotoPage = () => {
         if (currentUrl !== to) {
             navigate(to, options);
         } else {
-            navigate(to, {replace: true, ...options})
+            navigate(to, { replace: true, ...options });
         }
     };
 };

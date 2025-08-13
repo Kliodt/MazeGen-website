@@ -8,8 +8,11 @@ const HomePage = () => {
 
     return (
         <>
-            <div className='header-sticky' style={{ zIndex: 1000, display: 'inline-block' }}>
-                <div style={{paddingTop: 16, paddingLeft: 16}}>
+            <div
+                className='header-sticky'
+                style={{ zIndex: 1000, display: 'inline-block' }}
+            >
+                <div style={{ paddingTop: 16, paddingLeft: 16 }}>
                     <Button
                         type='primary'
                         onClick={() => navigate('/generate')}

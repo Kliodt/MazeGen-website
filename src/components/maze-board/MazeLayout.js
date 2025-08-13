@@ -9,7 +9,7 @@ const drawMazeOnCanvas = (canvasContext, mazeGrid, lineWidth, step) => {
 
     const align = coord => {
         return Math.round(coord + offset) - offset;
-    }
+    };
 
     ctx.lineWidth = lineWidth;
     let x = 0,
@@ -54,10 +54,10 @@ const drawPathOnCanvas = (
     ctx.strokeStyle = 'rgb(255 0 0)';
 
     const offset = lineWidth % 2 === 0 ? 0 : 0.5;
-    
+
     const align = coord => {
         return Math.round(coord + offset) - offset;
-    }
+    };
 
     const drawPathSegment = (a, b) => {
         ctx.beginPath();

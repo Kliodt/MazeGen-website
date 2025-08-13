@@ -1,11 +1,11 @@
-import { ControlOutlined, SettingOutlined } from '@ant-design/icons';
+import { ControlOutlined } from '@ant-design/icons';
 import { Button, Card, Drawer, Flex } from 'antd';
 import { useRef, useState } from 'react';
+import BasicLayoutOptions from '../components/maze-board/BasicLayoutOptions';
 import MazeLayout from '../components/maze-board/MazeLayout';
-import MazeLayoutPlaceholder from '../components/maze-board/MazeLayoutPlaceholder';
+import MazeLayoutSkeleton from '../components/maze-board/MazeLayoutSkeleton';
 import GeneratorSettings from '../components/maze-generator/GeneratorSettings';
 import useGotoPage from '../hooks/useGotoPage';
-import BasicLayoutOptions from '../components/maze-board/BasicLayoutOptions';
 
 const GeneratorPage = () => {
     const [maze, setMaze] = useState(null);
@@ -80,14 +80,14 @@ const GeneratorPage = () => {
                             </Flex>
                         </Flex>
                     ) : isGenerating ? (
-                        <MazeLayoutPlaceholder
+                        <MazeLayoutSkeleton
                             canvasMaxWidth={500 * zoom}
                             canvasMaxHeight={500 * zoom}
                             widthToHeightRatio={mazeWidthToHeightRatio.current}
                             active
                         />
                     ) : (
-                        <MazeLayoutPlaceholder
+                        <MazeLayoutSkeleton
                             canvasMaxWidth={500 * zoom}
                             canvasMaxHeight={500 * zoom}
                         >
@@ -97,11 +97,15 @@ const GeneratorPage = () => {
                                 icon={<ControlOutlined />}
                                 onClick={toggleDrawer}
                                 className='simple-shadow'
-                                style={{padding: '30px 15px'}}
+                                style={{ padding: '30px 15px' }}
                             >
-                                <span>Настройки<br/>генерации</span>
+                                <span>
+                                    Настройки
+                                    <br />
+                                    генерации
+                                </span>
                             </Button>
-                        </MazeLayoutPlaceholder>
+                        </MazeLayoutSkeleton>
                     )}
                 </Card>
             </Flex>

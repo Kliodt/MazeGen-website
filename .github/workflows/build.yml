@@ -1,0 +1,33 @@
+
+name: Build MazeGen frontend
+
+on:
+    push:
+        branches:
+            - "**"
+
+jobs: 
+    buildMazeGen:
+
+        name: MazeGen build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build React app
+              run: npm run build
+            
+            # - name: Zip artifact
+            #   run: zip -r output.zip ./build
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with: 
+                name: MazeGen-frontend
+                path: ./build
+

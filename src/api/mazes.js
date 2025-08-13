@@ -123,7 +123,9 @@ export const MazeApi = {
     async submitMazeCompletion(mazeId, points) {
         const response = await Api.graphqlQuery(`
             mutation {
-                submitMazeCompletion(points: ${JSON.stringify(points)}, mazeId: ${mazeId}) {
+                submitMazeCompletion(points: ${JSON.stringify(
+                    points
+                )}, mazeId: ${mazeId}) {
                     isMazeCompleted
                     completionDate
                 }
